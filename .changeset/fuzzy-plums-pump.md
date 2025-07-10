@@ -1,5 +1,5 @@
 ---
-"fullscreen-ink": patch
+"fullscreen-ink": minor
 ---
 
-Exposing the useScreenSize hook
+Make `useScreenSize` public

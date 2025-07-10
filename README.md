@@ -65,6 +65,25 @@ const app = useApp();
 app.exit();
 ```
 
+### Obtaining the screen size
+
+The hook used under the hood to obtain the screen size is `useScreenSize`, which returns an object with `height` and `width` properties that reflect the current size of the terminal (rows and columns in stdout). If you have an advanced use case, it is also available for direct use:
+
+```js
+import { useScreenSize } from "fullscreen-ink";
+
+function MyComponent() {
+  const { height, width } = useScreenSize();
+
+  return (
+    <div>
+      <p>Height: {height}</p>
+      <p>Width: {width}</p>
+    </div>
+  );
+}
+```
+
 ## How it works
 
 Full screen is achieved through the combination of two things:
