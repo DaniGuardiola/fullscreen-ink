@@ -8,7 +8,7 @@ Create responsive, full-screen Ink terminal apps.
 npm i fullscreen-ink
 ```
 
-```js
+```jsx
 import { withFullScreen } from "fullscreen-ink";
 
 withFullScreen(<App />).start();
@@ -20,7 +20,7 @@ The app will be full-screen and will resize responsively as the terminal window 
 
 You can pass any options that Ink's `render` function accepts to `withFullScreen`:
 
-```js
+```jsx
 withFullScreen(<App />, { exitOnCtrlC: false }).start();
 ```
 
@@ -28,7 +28,7 @@ withFullScreen(<App />, { exitOnCtrlC: false }).start();
 
 If you need the Ink "instance" (normally returned from Ink's `render` function), you can access it through the `instance` property of the object returned from `withFullScreen`:
 
-```js
+```jsx
 const ink = withFullScreen(<App />);
 // ...
 ink.instance.rerender(<SomethingElse />);
@@ -36,7 +36,7 @@ ink.instance.rerender(<SomethingElse />);
 
 If you access it, keep in mind that due to how `fullscreen-ink` works, there might be a race condition unless you wait for the `start` method to resolve. For example:
 
-```js
+```jsx
 const ink = withFullScreen(<App />);
 await ink.start();
 ink.instance.rerender(<SomethingElse />);
@@ -46,7 +46,7 @@ ink.instance.rerender(<SomethingElse />);
 
 Instead of calling `waitUntilExit` on the Ink instance, you must use the `waitUntilExit` property of the object:
 
-```js
+```jsx
 const ink = withFullScreen(<App />);
 // ...
 await ink.waitUntilExit();
@@ -63,6 +63,19 @@ import { useApp } from "ink";
 // somewhere in a component
 const app = useApp();
 app.exit();
+```
+
+### Obtaining the screen size
+
+The hook used under the hood to obtain the screen size is `useScreenSize`, which returns an object with `height` and `width` properties that reflect the current size of the terminal (rows and columns in stdout). If you have an advanced use case, it is also available for direct use:
+
+```js
+import { useScreenSize } from "fullscreen-ink";
+
+function MyComponent() {
+  const { height, width } = useScreenSize();
+  // use height and width as needed
+}
 ```
 
 ## How it works
